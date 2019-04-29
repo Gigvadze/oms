@@ -1,29 +1,29 @@
 pipeline {
-    agent { label 'linux' }
+    agent { label 'JenkinsAgent' }
     tools {
-        maven 'M3'
+        maven 'maven'
     }
     stages {
         stage ('Checkout') {
           steps {
-            git 'https://github.com/effectivejenkins/myProject.git'
+            git 'http://10.26.34.64/henadiy/omspipe.git'
           }
         }
         stage('Build') {
             steps {
-                sh 'mvn clean compile'
+                sh 'mvn clean install'
             }
         }
         stage('Test'){
             steps {
-                sh 'mvn test'
-                junit '**/target/surefire-reports/TEST-*.xml'
+                sh 'mvn test' 
+           //     junit '**/target/surefire-reports/TEST-*.xml'
             }
-        }
+        } 
         stage('Package') {
             steps {
                 sh 'mvn package'
             }
-        }
+        } 
     }
 }
