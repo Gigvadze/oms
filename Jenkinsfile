@@ -1,8 +1,6 @@
 pipeline {
-    agent { label 'JenkinsAgent' }
-    tools {
-        maven 'maven'
-    }
+    agent { docker 'maven:3.6-alpine' }
+    
     stages {
     /*    stage ('Checkout') {
           steps {
