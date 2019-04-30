@@ -10,7 +10,8 @@ pipeline {
         stage('Build') {
             steps {
                 checkout scm
-                sh 'mvn clean install'
+               // sh 'mvn clean install'
+                sh 'mvn clean package'
                 archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
             }
         }
