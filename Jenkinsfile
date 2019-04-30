@@ -13,12 +13,12 @@ pipeline {
                 archiveArtifacts artifacts: 'target/*.war', fingerprint: true
             }
         } 
-        stage('Test'){
+        /*stage('Test'){
             steps {
                 sh 'mvn test' 
                 
             }
-        } 
+        } */
         
         stage('Deploy') {
             steps {
