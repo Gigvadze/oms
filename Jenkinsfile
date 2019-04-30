@@ -4,11 +4,11 @@ pipeline {
         maven 'maven'
     }
     stages {
-        stage ('Checkout') {
+    /*    stage ('Checkout') {
           steps {
             git 'http://10.26.34.64/henadiy/omspipe.git'
           }
-        }
+        } */
         stage('Build') {
             steps {
                 sh 'mvn clean install'
