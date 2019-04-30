@@ -8,10 +8,10 @@
 
         	<property name="dialect">org.hibernate.dialect.MySQLDialect</property>
 		
-		<property name="hibernate.connection.url">jdbc:mysql://10.26.34.165:3306/omsdb?createDatabaseIfNotExist=true</property>
+		<property name="hibernate.connection.url">jdbc:mysql://10.26.34.165:3306/omsdb</property>
 		<property name="hibernate.connection.username">henadiy</property>
 		<property name="hibernate.connection.password">cubasbubas</property>
- 		<property name="hibernate.hbm2ddl.auto">update</property>
+ 		<property name="hibernate.hbm2ddl.auto">create-drop</property>
  		<property name="hibernate.show_sql">true</property>
 
 		<mapping class="com.softserveinc.edu.oms.domain.entities.Role" />
