@@ -3,7 +3,7 @@ pipeline {
     
     stages {
         stage('Build') {
-            agent { label 'JenkinsAgent' docker 'maven:3.6-alpine' }
+            agent { docker 'maven:3.6-alpine' }
             steps {
                 checkout scm
                 sh 'mvn clean install'
