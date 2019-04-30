@@ -11,7 +11,7 @@ pipeline {
             steps {
                 checkout scm
                // sh 'mvn clean install'
-                sh 'mvn clean package'
+                sh 'mvn package'
                 archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
             }
         }
