@@ -2,13 +2,8 @@ pipeline {
     agent { label 'JenkinsAgent'}
     
     stages {
-    /*    stage ('Checkout') {
-          steps {
-            git 'http://10.26.34.64/henadiy/omspipe.git'
-          }
-        } */
         stage('Build') {
-            agent { docker 'maven:3.6-alpine' }
+            agent { label 'JenkinsAgent' docker 'maven:3.6-alpine' }
             steps {
                 checkout scm
                 sh 'mvn clean install'
