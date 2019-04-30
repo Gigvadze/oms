@@ -12,7 +12,7 @@ pipeline {
                 checkout scm
                // sh 'mvn clean install'
                 sh 'mvn package'
-                archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
+                //archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
             }
         }
         stage('Test'){
