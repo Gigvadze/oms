@@ -4,7 +4,7 @@ pipeline {
         maven 'maven'
     }
     stages {
-       /* stage('Build') {
+        stage('Build') {
             agent { docker 'maven:3.6-alpine' }
             steps {
                 checkout scm
@@ -12,14 +12,14 @@ pipeline {
                 //sh 'mvn package'
                 archiveArtifacts artifacts: 'target/*.war', fingerprint: true
             }
-        } */
+        } 
         stage('Test'){
             steps {
                 sh 'mvn test' 
-                junit '**/target/surefire-reports/TEST-*.xml'
+                
             }
         } 
-        /*
+        
         stage('Deploy') {
             steps {
                 // copy the application
@@ -29,6 +29,6 @@ pipeline {
                 echo "Deploying to Tomcat at http://10.26.34.81:8080/OMS"
                 sh 'curl -s --upload-file target/OMS.war "http://henadiy:cubasbubas@10.26.34.81:8080/manager/text/deploy?path=/OMS&update=true&tag=${BUILD_TAG}"'
             }
-        } */
+        } 
     }
 }
