@@ -1,5 +1,5 @@
 pipeline {
-    agent { label 'JenkinsAgent'}
+    agent none
     tools{
         maven 'maven'
     }
@@ -13,10 +13,10 @@ pipeline {
                 archiveArtifacts artifacts: 'target/*.war', fingerprint: true
             }
         } 
-        /*stage('Test'){
-            steps {
-                sh 'mvn test' 
-                
+     /* stage('Static Code Analysis'){
+        // Sonarqube must be configured in the Jenkins: Configuration -> Add SonarQube
+            withSonarQubeEnv('my-sonarqube-demo') {
+                sh 'mvn clean verify sonar:sonar -Dsonar.projectVersion=$BUILD_NUMBER'
             }
         } */
         
