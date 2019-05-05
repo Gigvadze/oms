@@ -1,8 +1,8 @@
 pipeline {
-    agent any
-    tools{
-        maven 'maven'
-    }
+    agent {label 'JenkinsAgent'}
+    //tools{
+      //  maven 'maven'
+    //}
     stages {
         stage('Build') {
             agent { docker 'maven:3.6-alpine' }
@@ -22,12 +22,14 @@ pipeline {
         }
         stage('init') {
             steps {
-                sh 'docker run -w /app -v /root/.aws:/root/.aws -v `pwd`:/app hashicorp/terraform:light init'
+               // sh 'docker run -w /app -v /home/henadiy/.aws:/root/.aws -v `pwd`:/app hashicorp/terraform:light init'
+               sh 'docker run -w /app -v `pwd`:/app hashicorp/terraform:light init'
             }
         }
         stage('plan') {
             steps {
-                sh 'docker run -w /app -v /root/.aws:/root/.aws -v `pwd`:/app hashicorp/terraform:light plan'
+                //sh 'docker run -w /app -v /root/.aws:/root/.aws -v `pwd`:/app hashicorp/terraform:light plan'
+                sh 'docker run -w /app -v `pwd`:/app hashicorp/terraform:light plan -var-file=variables.tfvars'
             }
         }
         stage('approval') {
@@ -40,7 +42,8 @@ pipeline {
         }
         stage('apply') {
             steps {
-                sh 'docker run -w /app -v /root/.aws:/root/.aws -v `pwd`:/app hashicorp/terraform:light apply -auto-approve'
+                //sh 'docker run -w /app -v /root/.aws:/root/.aws -v `pwd`:/app hashicorp/terraform:light apply -auto-approve'   
+                sh 'docker run -w /app -v `pwd`:/app hashicorp/terraform:light apply -auto-approve -var-file=variables.tfvars'
                 cleanWs()
             }
         }
