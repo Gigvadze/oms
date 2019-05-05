@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent none
     tools{
         maven 'maven'
     }
@@ -13,14 +13,40 @@ pipeline {
                 archiveArtifacts artifacts: 'target/*.war', fingerprint: true
             }
         } 
-     /* stage('Static Code Analysis'){
-        // Sonarqube must be configured in the Jenkins: Configuration -> Add SonarQube
-            withSonarQubeEnv('my-sonarqube-demo') {
-                sh 'mvn clean verify sonar:sonar -Dsonar.projectVersion=$BUILD_NUMBER'
+
+        stage('checkout') {
+            steps {
+                checkout scm
+                sh 'docker pull hashicorp/terraform:light'
+            }  
+        }
+        stage('init') {
+            steps {
+                sh 'docker run -w /app -v /root/.aws:/root/.aws -v `pwd`:/app hashicorp/terraform:light init'
             }
-        } */
-        
+        }
+        stage('plan') {
+            steps {
+                sh 'docker run -w /app -v /root/.aws:/root/.aws -v `pwd`:/app hashicorp/terraform:light plan'
+            }
+        }
+        stage('approval') {
+            options {
+                timeout(time: 1, unit: 'HOURS') 
+            }
+            steps {
+                input 'approve the plan to proceed and apply'
+            }
+        }
+        stage('apply') {
+            steps {
+                sh 'docker run -w /app -v /root/.aws:/root/.aws -v `pwd`:/app hashicorp/terraform:light apply -auto-approve'
+                cleanWs()
+            }
+        }
+
         stage('Deploy') {
+            agent { label JenkinsAgent }
             steps {
                 // copy the application
                 //sh 'scp target/*.jar jenkins@192.168.50.10:/opt/pet/'
