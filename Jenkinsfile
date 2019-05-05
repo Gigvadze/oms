@@ -20,7 +20,7 @@ pipeline {
                 sh 'docker pull hashicorp/terraform:light'
             }  
         }
-        /*stage('init') {
+        stage('init') {
             steps {
                 sh 'docker run -w /app -v /root/.aws:/root/.aws -v `pwd`:/app hashicorp/terraform:light init'
             }
@@ -55,6 +55,6 @@ pipeline {
                 echo "Deploying to Tomcat at http://10.26.34.81:8080/OMS"
                 sh 'curl -s --upload-file target/OMS.war "http://henadiy:cubasbubas@10.26.34.81:8080/manager/text/deploy?path=/OMS&update=true&tag=${BUILD_TAG}"'
             }
-        }*/ 
+        } 
     }
 }
