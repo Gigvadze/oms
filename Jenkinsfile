@@ -49,7 +49,7 @@ pipeline {
         }
 
         stage('Deploy') {
-            agent { label 'JenkinsAgent' }
+          //  agent { label 'JenkinsAgent' }
             steps {
                 // copy the application
                 //sh 'scp target/*.jar jenkins@192.168.50.10:/opt/pet/'
