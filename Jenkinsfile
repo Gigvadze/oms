@@ -18,14 +18,14 @@ pipeline {
                 //archiveArtifacts artifacts: 'target/*.war', fingerprint: true
             }
         }
-/*
+
         stage('checkout') {
             agent { label 'master' }
             steps {
                 checkout scm
                 sh 'docker pull hashicorp/terraform:light'
             }  
-        }
+        } /*
         stage('init') {
             agent { label 'master' }
             steps {
