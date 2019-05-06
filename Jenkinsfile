@@ -39,7 +39,7 @@ pipeline {
                 //sh 'docker run -w /app -v /root/.aws:/root/.aws -v `pwd`:/app hashicorp/terraform:light plan'
                 sh 'docker run -w /app -v /home/henadiy/Terraform:/key -v `pwd`:/app hashicorp/terraform:light plan -var-file=/key/variables.tfvars'
             }
-        }/*
+        }
         stage('approval') {
             options {
                 timeout(time: 1, unit: 'HOURS') 
@@ -47,7 +47,7 @@ pipeline {
             steps {
                 input 'approve the plan to proceed and apply'
             }
-        }
+        } /*
         stage('apply') {
             agent { label 'master' }
             steps {
