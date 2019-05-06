@@ -47,7 +47,7 @@ pipeline {
             steps {
                 input 'approve the plan to proceed and apply'
             }
-        } /*
+        } 
         stage('apply') {
             agent { label 'master' }
             steps {
@@ -56,7 +56,7 @@ pipeline {
                 cleanWs()
             }
         }
-*/
+
         stage('Deploy') {
             agent { label 'master' }
             steps {
