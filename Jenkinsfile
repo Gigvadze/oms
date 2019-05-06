@@ -25,14 +25,14 @@ pipeline {
                 checkout scm
                 sh 'docker pull hashicorp/terraform:light'
             }  
-        } /*
+        } 
         stage('init') {
             agent { label 'master' }
             steps {
                // sh 'docker run -w /app -v /home/henadiy/.aws:/root/.aws -v `pwd`:/app hashicorp/terraform:light init'
                sh 'docker run -w /app -v `pwd`:/app hashicorp/terraform:light init'
             }
-        }
+        } /*
         stage('plan') {
             agent { label 'master' }
             steps {
