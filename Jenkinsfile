@@ -10,7 +10,7 @@ pipeline {
                 checkout scm
                 sh 'mvn clean install'
                 //sh 'mvn package'
-                archiveArtifacts artifacts: 'target/*.war', fingerprint: true
+                //archiveArtifacts artifacts: 'target/*.war', fingerprint: true
             }
         } 
 
