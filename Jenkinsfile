@@ -1,5 +1,5 @@
 pipeline {
-    agent { label 'JenkinsAgent' }
+    agent none
     //tools{
       //  maven 'maven'
     //}
@@ -15,21 +15,21 @@ pipeline {
         } 
 
         stage('checkout') {
-            agent { label 'JenkinsAgent' }
+            agent { label 'master' }
             steps {
                 checkout scm
                 sh 'docker pull hashicorp/terraform:light'
             }  
         }
         stage('init') {
-            agent { label 'JenkinsAgent' }
+            agent { label 'master' }
             steps {
                // sh 'docker run -w /app -v /home/henadiy/.aws:/root/.aws -v `pwd`:/app hashicorp/terraform:light init'
                sh 'docker run -w /app -v `pwd`:/app hashicorp/terraform:light init'
             }
         }
         stage('plan') {
-            agent { label 'JenkinsAgent' }
+            agent { label 'master' }
             steps {
                 //sh 'docker run -w /app -v /root/.aws:/root/.aws -v `pwd`:/app hashicorp/terraform:light plan'
                 sh 'docker run -w /app -v /home/henadiy/Terraform:/key -v `pwd`:/app hashicorp/terraform:light plan -var-file=/key/variables.tfvars'
@@ -44,7 +44,7 @@ pipeline {
             }
         }
         stage('apply') {
-            agent { label 'JenkinsAgent' }
+            agent { label 'master' }
             steps {
                 //sh 'docker run -w /app -v /root/.aws:/root/.aws -v `pwd`:/app hashicorp/terraform:light apply -auto-approve'   
                 sh 'docker run -w /app -v /home/henadiy/Terraform:/key -v `pwd`:/app hashicorp/terraform:light apply -auto-approve -var-file=/key/variables.tfvars'
@@ -53,7 +53,7 @@ pipeline {
         }
 
         stage('Deploy') {
-            agent { label 'JenkinsAgent' }
+            agent { label 'master' }
             steps {
                 // copy the application
                 //sh 'scp target/*.jar jenkins@192.168.50.10:/opt/pet/'
