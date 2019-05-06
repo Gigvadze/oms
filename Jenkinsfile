@@ -53,7 +53,7 @@ pipeline {
             steps {
                 //sh 'docker run -w /app -v /root/.aws:/root/.aws -v `pwd`:/app hashicorp/terraform:light apply -auto-approve'   
                 sh 'docker run -w /app -v /home/henadiy/Terraform:/key -v `pwd`:/app hashicorp/terraform:light apply -auto-approve -var-file=/key/variables.tfvars'
-                sh 'docker run -w /app -v /home/henadiy/Terraform:/key -v `pwd`:/app hashicorp/terraform:light output > out.file'
+                sh 'docker run -w /app -v /home/henadiy/Terraform:/key -v `pwd`:/app hashicorp/terraform:light output > cut -d = -f 2 out.file'
             }
         }
 
@@ -64,7 +64,7 @@ pipeline {
                 //sh 'scp target/*.jar jenkins@192.168.50.10:/opt/pet/'
                 // start the application
                 //sh "ssh jenkins@192.168.50.10 'nohup java -jar /opt/pet/spring-petclinic-1.5.1.jar &'"
-                sh 'cut -d = -f 1 out.file > out.file'
+                //sh 'cut -d = -f 2 out.file > out.file'
                 echo "Deploying to Tomcat at http://10.26.34.81:8080/OMS"
                 sh 'curl -s --upload-file target/OMS.war "http://henadiy:cubasbubas@10.26.34.81:8080/manager/text/deploy?path=/OMS&update=true&tag=${BUILD_TAG}"'
             }
