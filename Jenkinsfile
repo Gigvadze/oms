@@ -18,7 +18,7 @@ pipeline {
                 //archiveArtifacts artifacts: 'target/*.war', fingerprint: true
             }
         } 
-
+/*
         stage('checkout') {
             agent { label 'master' }
             steps {
