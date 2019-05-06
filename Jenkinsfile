@@ -53,7 +53,7 @@ pipeline {
             steps {
                 //sh 'docker run -w /app -v /root/.aws:/root/.aws -v `pwd`:/app hashicorp/terraform:light apply -auto-approve'   
                 sh 'docker run -w /app -v /home/henadiy/Terraform:/key -v `pwd`:/app hashicorp/terraform:light apply -auto-approve -var-file=/key/variables.tfvars'
-                cleanWs()
+                //cleanWs()
             }
         }
 
