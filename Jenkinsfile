@@ -32,14 +32,14 @@ pipeline {
                // sh 'docker run -w /app -v /home/henadiy/.aws:/root/.aws -v `pwd`:/app hashicorp/terraform:light init'
                sh 'docker run -w /app -v `pwd`:/app hashicorp/terraform:light init'
             }
-        } /*
+        } 
         stage('plan') {
             agent { label 'master' }
             steps {
                 //sh 'docker run -w /app -v /root/.aws:/root/.aws -v `pwd`:/app hashicorp/terraform:light plan'
                 sh 'docker run -w /app -v /home/henadiy/Terraform:/key -v `pwd`:/app hashicorp/terraform:light plan -var-file=/key/variables.tfvars'
             }
-        }
+        }/*
         stage('approval') {
             options {
                 timeout(time: 1, unit: 'HOURS') 
