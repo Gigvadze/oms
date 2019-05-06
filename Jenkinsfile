@@ -5,7 +5,12 @@ pipeline {
     //}
     stages {
         stage('Build') {
-            agent { docker 'maven:3.6-alpine' }
+            agent {
+               docker {
+                    image 'maven:3.6-alpine' 
+                    args '-v /var/lib/jenkins/workspace/omspipe:/root/.m2' 
+                }
+            }
             steps {
                 checkout scm
                 sh 'mvn clean install'
