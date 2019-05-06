@@ -17,7 +17,7 @@ pipeline {
                 //sh 'mvn package'
                 //archiveArtifacts artifacts: 'target/*.war', fingerprint: true
             }
-        } }   }  
+        }
 /*
         stage('checkout') {
             agent { label 'master' }
@@ -56,7 +56,7 @@ pipeline {
                 cleanWs()
             }
         }
-
+*/
         stage('Deploy') {
             agent { label 'master' }
             steps {
@@ -69,4 +69,4 @@ pipeline {
             }
         } 
     }
-} */
+} 
