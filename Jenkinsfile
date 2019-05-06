@@ -32,7 +32,7 @@ pipeline {
             agent { label 'JenkinsAgent' }
             steps {
                 //sh 'docker run -w /app -v /root/.aws:/root/.aws -v `pwd`:/app hashicorp/terraform:light plan'
-                sh 'docker run -w /app -v /home/henadiy/Terraform:/key -v `pwd`:/app hashicorp/terraform:light plan -var-file=key/variables.tfvars'
+                sh 'docker run -w /app -v /home/henadiy/Terraform:/key -v `pwd`:/app hashicorp/terraform:light plan -var-file=../../Terraform/variables.tfvars'
             }
         }
         stage('approval') {
