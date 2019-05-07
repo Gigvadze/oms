@@ -29,7 +29,7 @@ resource "aws_instance" "web" {
       "sudo yum install docker -y",
       "sudo service docker start",
       "sudo usermod -a -G docker ec2-user",
-      "sudo scp -i ~/Terraform/JenkinsAgent.pem /var/lib/jenkins/workspace/omspipe/target/OMS.war ec2-user@$ip:/home/ec2-user/ "
+      //"sudo scp -i ~/Terraform/JenkinsAgent.pem /var/lib/jenkins/workspace/omspipe/target/OMS.war ec2-user@$ip:/home/ec2-user/ "
      // "sudo systemctl enable apache2",
      // "sudo systemctl start apache2",
       //"sudo chmod 777 /var/www/html/index.html"
@@ -39,9 +39,9 @@ resource "aws_instance" "web" {
   provisioner "remote-exec" {
     inline = [
 	    "docker image pull tomcat:8.0",
-       "docker run -p 80:8080 -d tomcat:8.0",
-      //"docker run -p 80:8080 -d -v /var/lib/jenkins/workspace/omspipe/target:/usr/local/tomcat/webapps/ tomcat:8.0"
-      "docker cp tomcat:8.0:/home/ec2-user/OMS.war /usr/local/tomcat/webapps/"
+      //"docker run -p 80:8080 -d tomcat:8.0",
+      "docker run -p 80:8080  -v /var/lib/jenkins/workspace/omspipe/target:/usr/local/tomcat/webapps/ tomcat:8.0"
+      //"docker cp tomcat:8.0:/home/ec2-user/OMS.war /usr/local/tomcat/webapps/"
       //"touch Dockerfile",
       //"/cat << EOT > Dockerfile",
       //"FROM tomcat:8.0",
