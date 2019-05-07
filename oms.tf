@@ -23,19 +23,29 @@ resource "aws_instance" "web" {
 	private_key = "${file(var.private_key_path)}"
     }
 	
-    provisioner "remote-exec" {
-	inline = [
-	  "sudo amazon-linux-extras install epel -y",
-	  "sudo yum install nginx -y",
-	  "sudo systemctl start nginx"	
-	]
-    }
+  provisioner "remote-exec" {
+    inline = [
+      //"sudo amazon-linux-extras install epel -y",
+      "sudo yum update -y",
+      "sudo amazon-linux-extras install docker",
+      "sudo service docker start",
+      "sudo usermod -a -G docker ec2-user"	
+    ]
+  }
+ 
+  provisioner "remote-exec" {
+    inline = [
+      "docker run -it --rm tomcat:8.0"
+    ]
+  }
+  
+
 }
 
 
-resource "aws_security_group" "nginx-sg" {
+resource "aws_security_group" "tomcat-sg" {
 
-  name        = "nginx_sg"
+  name        = "tomcat_sg"
 
 
   # SSH access from anywhere
