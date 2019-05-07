@@ -38,12 +38,13 @@ resource "aws_instance" "web" {
   provisioner "remote-exec" {
     inline = [
 	    "docker image pull tomcat:8.0",
-      "docker run -p 80:8080 -v /var/lib/jenkins/workspace/omspipe/target:/usr/local/tomcat/webapps/ tomcat:8.0 -d"
+      "docker run -p 80:8080 -d -v /var/lib/jenkins/workspace/omspipe/target:/usr/local/tomcat/webapps/ tomcat:8.0"
       //"touch Dockerfile",
       //"/cat << EOT > Dockerfile",
       //"FROM tomcat:8.0",
       //"COPY OMS.war /usr/local/tomcat/webapps/",
       //"EOT"
+      //  sudo du -sh /
     ]
   }
 
