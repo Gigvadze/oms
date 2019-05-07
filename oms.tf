@@ -25,14 +25,23 @@ resource "aws_instance" "web" {
 	
   provisioner "remote-exec" {
     inline = [
-      "sudo yum update",
-      "sudo yum install apache2 -y",
-      "sudo systemctl enable apache2",
-      "sudo systemctl start apache2",
+      "sudo yum update -y",
+      "sudo yum install docker -y",
+      "sudo service docker start",
+      "sudo usermod -a -G docker ec2-user"
+     // "sudo systemctl enable apache2",
+     // "sudo systemctl start apache2",
       //"sudo chmod 777 /var/www/html/index.html"
     ]
   }
- 
+
+  provisioner "remote-exec" {
+    inline = [
+	"docker run -d --rm -p 80:8080 tomcat:8.0"
+    ]
+  }
+
+
   
   
 
