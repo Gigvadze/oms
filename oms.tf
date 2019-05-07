@@ -33,16 +33,25 @@ resource "aws_instance" "web" {
      // "sudo systemctl enable apache2",
      // "sudo systemctl start apache2",
       //"sudo chmod 777 /var/www/html/index.html"
+      
     ]
   }
 
   provisioner "remote-exec" {
     inline = [
 	    "docker image pull tomcat:8.0",
+      "touch Dockerfile",
+      "cat <<EOF > Dockerfile",
+      "From tomcat:8.0",
+      "MAINTAINER 'henadiy'",
+      "ADD OMS.war /usr/local/tomcat/webapps/",
+      "EOF",
+      "docker build -t webserver .",
+      "docker run -it --rm -p 80:8080 --name OMS webserver"
       //"docker run -p 80:8080 -d tomcat:8.0",
-      "docker run -p 80:8080  -v /var/lib/jenkins/workspace/omspipe/target:/usr/local/tomcat/webapps/ tomcat:8.0"
+      //"docker run -it  --rm -p 80:8080  -v /var/lib/jenkins/workspace/omspipe/target:/usr/local/tomcat/webapps/ --name tomcat:8.0"
       //"docker cp tomcat:8.0:/home/ec2-user/OMS.war /usr/local/tomcat/webapps/"
-      //"touch Dockerfile",
+      //
       //"/cat << EOT > Dockerfile",
       //"FROM tomcat:8.0",
       //"COPY OMS.war /usr/local/tomcat/webapps/",
