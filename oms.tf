@@ -12,7 +12,7 @@ resource "aws_instance" "web" {
     ami  = "ami-09def150731bdbcc2"
     instance_type = "t2.micro"
     key_name = "JenkinsAgent"
-    vpc_security_group_ids = ["${aws_security_group.nginx-sg.id}"]
+    vpc_security_group_ids = ["${aws_security_group.tomcat-sg.id}"]
 
     tags {
 	Name = "web-server"		
