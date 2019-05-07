@@ -9,7 +9,7 @@ provider "aws" {
 }
 
 resource "aws_instance" "web" {
-    ami  = "ami-09def150731bdbcc2"
+    ami  = "ami-090f10efc254eaf55"
     instance_type = "t2.micro"
     key_name = "JenkinsAgent"
     vpc_security_group_ids = ["${aws_security_group.tomcat-sg.id}"]
@@ -25,11 +25,11 @@ resource "aws_instance" "web" {
 	
   provisioner "remote-exec" {
     inline = [
-      //"sudo amazon-linux-extras install epel -y",
-      "sudo yum update -y",
-      "sudo amazon-linux-extras install docker -y",
-      "sudo service docker start",
-      //"sudo usermod -a -G docker ec2-user"	
+      "sudo apt-get update",
+      "sudo apt-get install apache2 -y",
+      "sudo systemctl enable apache2",
+      "sudo systemctl start apache2",
+      "sudo chmod 777 /var/www/html/index.html"
     ]
   }
  
