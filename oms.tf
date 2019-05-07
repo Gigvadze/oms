@@ -75,7 +75,7 @@ resource "aws_security_group" "tomcat-sg" {
 
     from_port   = 80
 
-    to_port     = 80
+    to_port     = 8080
 
     protocol    = "tcp"
 
