@@ -62,7 +62,7 @@ resource "aws_instance" "web" {
       //"FROM tomcat:8.0",
       //"COPY OMS.war /usr/local/tomcat/webapps/",
       //"EOT"
-      //  sudo du -sh ////
+      //  sudo du -sh /////
     ]
   }
   
