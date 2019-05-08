@@ -37,6 +37,11 @@ resource "aws_instance" "web" {
     ]
   }
 
+  provisioner "file" {
+    source      = "/app/target/OMS.war"
+    destination = "/home/ec2-user/OMS.war"
+  }
+
   provisioner "remote-exec" {
     inline = [
 	    "docker image pull tomcat:8-jre8",
@@ -60,10 +65,7 @@ resource "aws_instance" "web" {
       //  sudo du -sh //
     ]
   }
-  provisioner "file" {
-    source      = "/app/target/OMS.war"
-    destination = "/home/ec2-user/OMS.war"
-  }
+  
 
   
   
