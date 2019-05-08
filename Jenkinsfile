@@ -48,7 +48,7 @@ pipeline {
                 input 'approve the plan to proceed and apply'
             }
         } 
-        stage('apply') {
+        stage('apply and deploy') {
             agent { label 'master' }
             steps {
                 //sh 'docker run -w /app -v /root/.aws:/root/.aws -v `pwd`:/app hashicorp/terraform:light apply -auto-approve'   
@@ -58,7 +58,7 @@ pipeline {
             }
         }
 
-        stage('Deploy') {
+  /*      stage('Deploy') {
             agent { label 'master' }
             steps {
                 // copy the application
@@ -70,6 +70,6 @@ pipeline {
                 //sh 'curl -s --upload-file target/OMS.war "http://henadiy:cubasbubas@${ip}:8080/manager/text/deploy?path=/OMS&update=true&tag=${BUILD_TAG}"'
                 
             }
-        } 
+        } */
     }
 } 

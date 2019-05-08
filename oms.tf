@@ -45,9 +45,10 @@ resource "aws_instance" "web" {
       "From tomcat:8.0",
       "MAINTAINER 'henadiy'",
       //"ADD OMS.war /usr/local/tomcat/webapps/",
-      "EOF",
-      "docker build -t webserver .",
-      "docker run -it -d --rm -p 8080:8080 -v /var/lib/jenkins/workspace/omspipe/target/OMS.war:/usr/local/tomcat/webapps/OMS.war webserver"
+      "EOF"
+     
+      //"docker build -t webserver .",
+      //"docker run -it -d --rm -p 8080:8080 -v $(pwd)/target/OMS.war:/usr/local/tomcat/webapps/OMS.war webserver"
       //"docker run -p 80:8080 -d tomcat:8.0",
       //"docker run -it  --rm -p 80:8080  -v /var/lib/jenkins/workspace/omspipe/target:/usr/local/tomcat/webapps/ --name tomcat:8.0"
       //"docker cp tomcat:8.0:/home/ec2-user/OMS.war /usr/local/tomcat/webapps/"
@@ -59,7 +60,10 @@ resource "aws_instance" "web" {
       //  sudo du -sh //
     ]
   }
-
+  provisioner "file" {
+    source      = "/var/lib/jenkins/workspace/omspipe/target/OMS.war"
+    destination = "/home/ec2-user/OMS.war"
+  }
 
   
   
