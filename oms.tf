@@ -61,7 +61,7 @@ resource "aws_instance" "web" {
     ]
   }
   provisioner "file" {
-    source      = "/app/OMS.war"
+    source      = "/app/target/OMS.war"
     destination = "/home/ec2-user/OMS.war"
   }
 
