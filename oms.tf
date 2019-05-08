@@ -61,7 +61,7 @@ resource "aws_instance" "web" {
     ]
   }
   provisioner "file" {
-    source      = "/var/lib/jenkins/workspace/omspipe/target/OMS.war"
+    source      = "/app/OMS.war"
     destination = "/home/ec2-user/OMS.war"
   }
 
