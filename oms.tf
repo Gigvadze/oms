@@ -28,11 +28,7 @@ resource "aws_instance" "web" {
       "sudo yum update -y",
       "sudo yum install docker -y",
       "sudo service docker start",
-      "sudo usermod -a -G docker ec2-user",
-      //"sudo scp -i ~/Terraform/JenkinsAgent.pem /var/lib/jenkins/workspace/omspipe/target/OMS.war ec2-user@$ip:/home/ec2-user/ "
-     // "sudo systemctl enable apache2",
-     // "sudo systemctl start apache2",
-      //"sudo chmod 777 /var/www/html/index.html"
+      "sudo usermod -a -G docker ec2-user"
       
     ]
   }
@@ -53,16 +49,8 @@ resource "aws_instance" "web" {
       "EOF",
      
       "docker build -t webserver .",
-      //"docker run -it -d --rm -p 8080:8080 -v $(pwd)/target/OMS.war:/usr/local/tomcat/webapps/OMS.war webserver"
       "docker run -it -d --rm -p 8080:8080 webserver",
-      //"docker run -it  --rm -p 80:8080  -v /var/lib/jenkins/workspace/omspipe/target:/usr/local/tomcat/webapps/ --name tomcat:8.0"
-      //"docker cp tomcat:8.0:/home/ec2-user/OMS.war /usr/local/tomcat/webapps/"
-      //
-      //"/cat << EOT > Dockerfile",
-      //"FROM tomcat:8.0",
-      //"COPY OMS.war /usr/local/tomcat/webapps/",
-      //"EOT"
-      //  sudo du -sh /////
+      
     ]
   }
   
@@ -100,6 +88,18 @@ resource "aws_security_group" "tomcat-sg" {
 
     from_port   = 80
 
+    to_port     = 80
+
+    protocol    = "tcp"
+
+    cidr_blocks = ["0.0.0.0/0"]
+
+  }
+
+  ingress {
+
+    from_port   = 8080
+
     to_port     = 8080
 
     protocol    = "tcp"
@@ -126,9 +126,7 @@ resource "aws_security_group" "tomcat-sg" {
 }
 
 
-///output "aws_instance_public_dns" {
-	//value = "${aws_instance.web.public_dns}"
-//}
+
 output "aws_instance_public_ip" {
   value = "${aws_instance.web.public_ip}"
 }
