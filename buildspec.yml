@@ -1,0 +1,29 @@
+version: 0.1
+plaintext:
+  JAVA_HOME: "/usr/lib/jvm/java-8-openjdk-amd64"
+phases:
+  install:
+    run-as: root
+    commands:
+      - echo This is a installation
+      - wget https://services.gradle.org/distributions/gradle-4.6-all.zip
+      - unzip -d /opt/gradle gradle-4.6-all.zip
+  pre_build:
+    commands:
+      - echo This is a pre build
+  build:
+    commands:
+      - echo Starting build `date`
+      - echo Current directory is `pwd`
+      - whereis gradle
+      - which gradle
+      - /opt/gradle/gradle-4.6/bin/gradle -version
+      - /opt/gradle/gradle-4.6/bin/gradle clean
+      - /opt/gradle/gradle-4.6/bin/gradle build
+  post_build:
+    commands:
+      - echo Build must be completed
+artifacts:
+  files:
+    - '**/*'
+  discard-paths: no
