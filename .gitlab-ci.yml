@@ -6,7 +6,6 @@ stages:
   
 before_script:
   - echo installing maven...
-  - apt-get install -y maven
   
 build:
   stage: build
