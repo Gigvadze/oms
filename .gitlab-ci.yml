@@ -5,11 +5,13 @@ stages:
 
   
 before_script:
-  - chmod +x mvnw
+  - echo installing maven...
+  - apt-get update -y
+  - apt-get install -y maven
   
 build:
   stage: build
-  script: ./mvnw package
+  script: mvn clean install
   artifacts:
     paths:
       - target/*.war
